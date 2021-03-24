@@ -1,5 +1,5 @@
 {
-  "checksum": "03c9370787d206fcd07400c5f47584d4",
+  "checksum": "b088e6ce5a84cdf5936a7067e275f731",
   "root": "letop-bs-example@link-dev:./esy.json",
   "node": {
     "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9": {
@@ -21,7 +21,8 @@
       "source": { "type": "link-dev", "path": ".", "manifest": "esy.json" },
       "overrides": [],
       "dependencies": [
-        "bs-platform@github:anmonteiro/bucklescript#1a00d85a@d41d8cd9"
+        "bs-platform@github:anmonteiro/bucklescript#1a00d85a@d41d8cd9",
+        "@opam/ppxlib@opam:0.22.0@d2d2223a"
       ],
       "devDependencies": [],
       "installConfig": { "pnp": false }
@@ -60,6 +61,58 @@
       "devDependencies": [],
       "installConfig": { "pnp": false }
     },
+    "@opam/stdlib-shims@opam:0.3.0@0d088929": {
+      "id": "@opam/stdlib-shims@opam:0.3.0@0d088929",
+      "name": "@opam/stdlib-shims",
+      "version": "opam:0.3.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/ba/babf72d3917b86f707885f0c5528e36c63fccb698f4b46cf2bab5c7ccdd6d84a#sha256:babf72d3917b86f707885f0c5528e36c63fccb698f4b46cf2bab5c7ccdd6d84a",
+          "archive:https://github.com/ocaml/stdlib-shims/releases/download/0.3.0/stdlib-shims-0.3.0.tbz#sha256:babf72d3917b86f707885f0c5528e36c63fccb698f4b46cf2bab5c7ccdd6d84a"
+        ],
+        "opam": {
+          "name": "stdlib-shims",
+          "version": "0.3.0",
+          "path": "esy.lock/opam/stdlib-shims.0.3.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c"
+      ]
+    },
+    "@opam/sexplib0@opam:v0.14.0@ddeb6438": {
+      "id": "@opam/sexplib0@opam:v0.14.0@ddeb6438",
+      "name": "@opam/sexplib0",
+      "version": "opam:v0.14.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/md5/37/37aff0af8f8f6f759249475684aebdc4#md5:37aff0af8f8f6f759249475684aebdc4",
+          "archive:https://ocaml.janestreet.com/ocaml-core/v0.14/files/sexplib0-v0.14.0.tar.gz#md5:37aff0af8f8f6f759249475684aebdc4"
+        ],
+        "opam": {
+          "name": "sexplib0",
+          "version": "v0.14.0",
+          "path": "esy.lock/opam/sexplib0.v0.14.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c"
+      ]
+    },
     "@opam/result@opam:1.5@6b753c82": {
       "id": "@opam/result@opam:1.5@6b753c82",
       "name": "@opam/result",
@@ -83,6 +136,42 @@
       ],
       "devDependencies": [
         "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c"
+      ]
+    },
+    "@opam/ppxlib@opam:0.22.0@d2d2223a": {
+      "id": "@opam/ppxlib@opam:0.22.0@d2d2223a",
+      "name": "@opam/ppxlib",
+      "version": "opam:0.22.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/3e/3eeb91e03966662284a3222e612dee7f4fa2b7637c53d9572d2a74134bb96d7a#sha256:3eeb91e03966662284a3222e612dee7f4fa2b7637c53d9572d2a74134bb96d7a",
+          "archive:https://github.com/ocaml-ppx/ppxlib/releases/download/0.22.0/ppxlib-0.22.0.tbz#sha256:3eeb91e03966662284a3222e612dee7f4fa2b7637c53d9572d2a74134bb96d7a"
+        ],
+        "opam": {
+          "name": "ppxlib",
+          "version": "0.22.0",
+          "path": "esy.lock/opam/ppxlib.0.22.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/stdlib-shims@opam:0.3.0@0d088929",
+        "@opam/sexplib0@opam:v0.14.0@ddeb6438",
+        "@opam/ppx_derivers@opam:1.2.1@ecf0aa45",
+        "@opam/ocaml-migrate-parsetree@opam:2.1.0@a3b6747d",
+        "@opam/ocaml-compiler-libs@opam:v0.12.3@f0f069bd",
+        "@opam/dune@opam:2.8.4@ee414d6c", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/stdlib-shims@opam:0.3.0@0d088929",
+        "@opam/sexplib0@opam:v0.14.0@ddeb6438",
+        "@opam/ppx_derivers@opam:1.2.1@ecf0aa45",
+        "@opam/ocaml-migrate-parsetree@opam:2.1.0@a3b6747d",
+        "@opam/ocaml-compiler-libs@opam:v0.12.3@f0f069bd",
         "@opam/dune@opam:2.8.4@ee414d6c"
       ]
     },
@@ -140,6 +229,58 @@
         "@opam/conf-m4@opam:1@196bf219", "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [ "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9" ]
+    },
+    "@opam/ocaml-migrate-parsetree@opam:2.1.0@a3b6747d": {
+      "id": "@opam/ocaml-migrate-parsetree@opam:2.1.0@a3b6747d",
+      "name": "@opam/ocaml-migrate-parsetree",
+      "version": "opam:2.1.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/38/387b788ee4c0537f1fe02c25e05f0335af424828fc6fe940acc0db5948a5a71f#sha256:387b788ee4c0537f1fe02c25e05f0335af424828fc6fe940acc0db5948a5a71f",
+          "archive:https://github.com/ocaml-ppx/ocaml-migrate-parsetree/releases/download/v2.1.0/ocaml-migrate-parsetree-v2.1.0.tbz#sha256:387b788ee4c0537f1fe02c25e05f0335af424828fc6fe940acc0db5948a5a71f"
+        ],
+        "opam": {
+          "name": "ocaml-migrate-parsetree",
+          "version": "2.1.0",
+          "path": "esy.lock/opam/ocaml-migrate-parsetree.2.1.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c"
+      ]
+    },
+    "@opam/ocaml-compiler-libs@opam:v0.12.3@f0f069bd": {
+      "id": "@opam/ocaml-compiler-libs@opam:v0.12.3@f0f069bd",
+      "name": "@opam/ocaml-compiler-libs",
+      "version": "opam:v0.12.3",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/sha256/a8/a8403531439c14bbda2d504ef93610fd29a8e9520fc700f21889d893a513e3c9#sha256:a8403531439c14bbda2d504ef93610fd29a8e9520fc700f21889d893a513e3c9",
+          "archive:https://github.com/janestreet/ocaml-compiler-libs/releases/download/v0.12.3/ocaml-compiler-libs-v0.12.3.tbz#sha256:a8403531439c14bbda2d504ef93610fd29a8e9520fc700f21889d893a513e3c9"
+        ],
+        "opam": {
+          "name": "ocaml-compiler-libs",
+          "version": "v0.12.3",
+          "path": "esy.lock/opam/ocaml-compiler-libs.v0.12.3"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c", "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@github:anmonteiro/ocaml#75f22c8@d41d8cd9",
+        "@opam/dune@opam:2.8.4@ee414d6c"
+      ]
     },
     "@opam/merlin-extend@opam:0.6@404f814c": {
       "id": "@opam/merlin-extend@opam:0.6@404f814c",
