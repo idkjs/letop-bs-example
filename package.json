@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build":"esy bsb -make-world",
+    "watch":"watchexec esy",
+    "clean":"esy bsb -clean-world",
+    "watch2": "esy bsb -clean-world -w",
+    "format": "esy dune build @fmt --auto-promote",
+    "test": "node src/App.bs.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bs-platform": "*"
+  }
+}
