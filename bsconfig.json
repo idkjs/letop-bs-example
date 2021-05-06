@@ -3,18 +3,25 @@
   "reason": {
     "react-jsx": 3
   },
-  "warnings": {
-    "number": "-44-45"
-  },
-  "sources": {
-    "dir" : "src",
-    "subdirs" : true
-  },
-  "package-specs": [{
-    "module": "commonjs",
-    "in-source": true
-  }],
+
+  "bsc-flags": [ "-bs-g" ],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "commonjs",
+      "in-source": true
+    }
+  ],
   "suffix": ".bs.js",
-  "bsc-flags": ["-bs-g"],
-  "refmt": 3
+  "bs-dependencies": [ "reason-react" ],
+  "bs-dev-dependencies": [],
+  "warnings": {
+    "number": "+A-48-42-44-45",
+    "error": "+A-3-44-102"
+  }
 }

@@ -1,0 +1,326 @@
+;;;;{BSB GENERATED: NO EDIT
+(subdir ./node_modules/reason-react/src
+(dirs :standard legacy)
+(rule
+(targets  React.ast)
+ (deps (:inputs  React.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  React.cmj React.cmi React.cmt React.bs.js)
+ (mode (promote (until-clean) (only React.bs.js)))(deps (:inputs  React.ast)  (:ast_deps .././src/React.ast ) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o React.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOM.ast)
+ (deps (:inputs  ReactDOM.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOM.cmj ReactDOM.cmi ReactDOM.cmt ReactDOM.bs.js)
+ (mode (promote (until-clean) (only ReactDOM.bs.js)))(deps (:inputs  ReactDOM.ast)  (:ast_deps .././src/ReactDOM.ast ) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReactDOM.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEvent.ast)
+ (deps (:inputs  ReactEvent.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEvent.iast)
+ (deps (:inputs  ReactEvent.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEvent.cmi ReactEvent.cmti)
+ (deps (:inputs  ReactEvent.iast)  (:ast_deps .././src/ReactEvent.ast .././src/ReactEvent.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -o ReactEvent.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEvent.cmj ReactEvent.cmt ReactEvent.bs.js)
+ (mode (promote (until-clean) (only ReactEvent.bs.js)))(deps (:inputs  ReactEvent.ast)  ReactEvent.cmi (:ast_deps .././src/ReactEvent.ast .././src/ReactEvent.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReactEvent.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMStyle.ast)
+ (deps (:inputs  ReactDOMStyle.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMStyle.cmj ReactDOMStyle.cmi ReactDOMStyle.cmt ReactDOMStyle.bs.js)
+ (mode (promote (until-clean) (only ReactDOMStyle.bs.js)))(deps (:inputs  ReactDOMStyle.ast)  (:ast_deps .././src/ReactDOMStyle.ast ) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReactDOMStyle.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMServer.ast)
+ (deps (:inputs  ReactDOMServer.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMServer.cmj ReactDOMServer.cmi ReactDOMServer.cmt ReactDOMServer.bs.js)
+ (mode (promote (until-clean) (only ReactDOMServer.bs.js)))(deps (:inputs  ReactDOMServer.ast)  (:ast_deps .././src/ReactDOMServer.ast ) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReactDOMServer.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactTestUtils.ast)
+ (deps (:inputs  ReactTestUtils.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactTestUtils.iast)
+ (deps (:inputs  ReactTestUtils.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactTestUtils.cmi ReactTestUtils.cmti)
+ (deps (:inputs  ReactTestUtils.iast)  (:ast_deps .././src/ReactTestUtils.ast .././src/ReactTestUtils.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -o ReactTestUtils.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactTestUtils.cmj ReactTestUtils.cmt ReactTestUtils.bs.js)
+ (mode (promote (until-clean) (only ReactTestUtils.bs.js)))(deps (:inputs  ReactTestUtils.ast)  ReactTestUtils.cmi (:ast_deps .././src/ReactTestUtils.ast .././src/ReactTestUtils.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReactTestUtils.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactRouter.ast)
+ (deps (:inputs  ReasonReactRouter.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactRouter.iast)
+ (deps (:inputs  ReasonReactRouter.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactRouter.cmi ReasonReactRouter.cmti)
+ (deps (:inputs  ReasonReactRouter.iast)  (:ast_deps .././src/ReasonReactRouter.ast .././src/ReasonReactRouter.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -o ReasonReactRouter.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactRouter.cmj ReasonReactRouter.cmt ReasonReactRouter.bs.js)
+ (mode (promote (until-clean) (only ReasonReactRouter.bs.js)))(deps (:inputs  ReasonReactRouter.ast)  ReasonReactRouter.cmi (:ast_deps .././src/ReasonReactRouter.ast .././src/ReasonReactRouter.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReasonReactRouter.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactErrorBoundary.ast)
+ (deps (:inputs  ReasonReactErrorBoundary.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactErrorBoundary.iast)
+ (deps (:inputs  ReasonReactErrorBoundary.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactErrorBoundary.cmi ReasonReactErrorBoundary.cmti)
+ (deps (:inputs  ReasonReactErrorBoundary.iast)  (:ast_deps .././src/ReasonReactErrorBoundary.ast .././src/ReasonReactErrorBoundary.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./legacy -I .    -w a -o ReasonReactErrorBoundary.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactErrorBoundary.cmj ReasonReactErrorBoundary.cmt ReasonReactErrorBoundary.bs.js)
+ (mode (promote (until-clean) (only ReasonReactErrorBoundary.bs.js)))(deps (:inputs  ReasonReactErrorBoundary.ast)  ReasonReactErrorBoundary.cmi (:ast_deps .././src/ReasonReactErrorBoundary.ast .././src/ReasonReactErrorBoundary.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I ./legacy -I .    -w a -bs-package-name reason-react -bs-package-output commonjs:./src:.bs.js -o ReasonReactErrorBoundary.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  ReasonReactErrorBoundary.bs.js ReasonReactRouter.bs.js ReactTestUtils.bs.js ReactDOMServer.bs.js ReactDOMStyle.bs.js ReactEvent.bs.js ReactDOM.bs.js React.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+(subdir ./node_modules/reason-react/src/legacy
+(rule
+(targets  ReactDOMRe.ast)
+ (deps (:inputs  ReactDOMRe.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMRe.cmj ReactDOMRe.cmi ReactDOMRe.cmt ReactDOMRe.bs.js)
+ (mode (promote (until-clean) (only ReactDOMRe.bs.js)))(deps (:inputs  ReactDOMRe.ast)  (:ast_deps ../.././src/legacy/ReactDOMRe.ast ) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-re-out -I . -I ..    -w a -bs-package-name reason-react -bs-package-output commonjs:./src/legacy:.bs.js -o ReactDOMRe.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReact.ast)
+ (deps (:inputs  ReasonReact.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReact.iast)
+ (deps (:inputs  ReasonReact.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReact.cmi ReasonReact.cmti)
+ (deps (:inputs  ReasonReact.iast)  (:ast_deps ../.././src/legacy/ReasonReact.ast ../.././src/legacy/ReasonReact.iast) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-re-out -I . -I ..    -w a -o ReasonReact.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReact.cmj ReasonReact.cmt ReasonReact.bs.js)
+ (mode (promote (until-clean) (only ReasonReact.bs.js)))(deps (:inputs  ReasonReact.ast)  ReasonReact.cmi (:ast_deps ../.././src/legacy/ReasonReact.ast ../.././src/legacy/ReasonReact.iast) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I . -I ..    -w a -bs-package-name reason-react -bs-package-output commonjs:./src/legacy:.bs.js -o ReasonReact.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEventRe.ast)
+ (deps (:inputs  ReactEventRe.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEventRe.iast)
+ (deps (:inputs  ReactEventRe.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEventRe.cmi ReactEventRe.cmti)
+ (deps (:inputs  ReactEventRe.iast)  (:ast_deps ../.././src/legacy/ReactEventRe.ast ../.././src/legacy/ReactEventRe.iast) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-re-out -I . -I ..    -w a -o ReactEventRe.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactEventRe.cmj ReactEventRe.cmt ReactEventRe.bs.js)
+ (mode (promote (until-clean) (only ReactEventRe.bs.js)))(deps (:inputs  ReactEventRe.ast)  ReactEventRe.cmi (:ast_deps ../.././src/legacy/ReactEventRe.ast ../.././src/legacy/ReactEventRe.iast) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I . -I ..    -w a -bs-package-name reason-react -bs-package-output commonjs:./src/legacy:.bs.js -o ReactEventRe.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMServerRe.ast)
+ (deps (:inputs  ReactDOMServerRe.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReactDOMServerRe.cmj ReactDOMServerRe.cmi ReactDOMServerRe.cmt ReactDOMServerRe.bs.js)
+ (mode (promote (until-clean) (only ReactDOMServerRe.bs.js)))(deps (:inputs  ReactDOMServerRe.ast)  (:ast_deps ../.././src/legacy/ReactDOMServerRe.ast ) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-re-out -I . -I ..    -w a -bs-package-name reason-react -bs-package-output commonjs:./src/legacy:.bs.js -o ReactDOMServerRe.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactCompat.ast)
+ (deps (:inputs  ReasonReactCompat.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactCompat.iast)
+ (deps (:inputs  ReasonReactCompat.rei) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactCompat.cmi ReasonReactCompat.cmti)
+ (deps (:inputs  ReasonReactCompat.iast)  (:ast_deps ../.././src/legacy/ReasonReactCompat.ast ../.././src/legacy/ReasonReactCompat.iast) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-re-out -I . -I ..    -w a -o ReasonReactCompat.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactCompat.cmj ReasonReactCompat.cmt ReasonReactCompat.bs.js)
+ (mode (promote (until-clean) (only ReasonReactCompat.bs.js)))(deps (:inputs  ReasonReactCompat.ast)  ReasonReactCompat.cmi (:ast_deps ../.././src/legacy/ReasonReactCompat.ast ../.././src/legacy/ReasonReactCompat.iast) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-read-cmi -bs-re-out -I . -I ..    -w a -bs-package-name reason-react -bs-package-output commonjs:./src/legacy:.bs.js -o ReasonReactCompat.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactOptimizedCreateClass.ast)
+ (deps (:inputs  ReasonReactOptimizedCreateClass.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-no-version-header -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  ReasonReactOptimizedCreateClass.cmj ReasonReactOptimizedCreateClass.cmi ReasonReactOptimizedCreateClass.cmt ReasonReactOptimizedCreateClass.bs.js)
+ (mode (promote (until-clean) (only ReasonReactOptimizedCreateClass.bs.js)))(deps (:inputs  ReasonReactOptimizedCreateClass.ast)  (:ast_deps ../.././src/legacy/ReasonReactOptimizedCreateClass.ast ) ../../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/reason-react -cwd ./src/legacy %{ast_deps}) (run bsc -bs-re-out -I . -I ..    -w a -bs-package-name reason-react -bs-package-output commonjs:./src/legacy:.bs.js -o ReasonReactOptimizedCreateClass.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  ReasonReactOptimizedCreateClass.bs.js ReasonReactCompat.bs.js ReactDOMServerRe.bs.js ReactEventRe.bs.js ReasonReact.bs.js ReactDOMRe.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+
+
+(subdir ./node_modules/reason-react(data_only_dirs .melange.eobjs))
+(subdir ./node_modules/reason-react/.melange.eobjs)
+
+(subdir ./src
+(rule
+(targets  App.ast)
+ (deps (:inputs  App.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  App.cmj App.cmi App.cmt App.bs.js)
+ (mode (promote (until-clean) (only App.bs.js)))(deps (:inputs  App.ast)  (:ast_deps .././src/App.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o App.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Util.ast)
+ (deps (:inputs  Util.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Util.cmj Util.cmi Util.cmt Util.bs.js)
+ (mode (promote (until-clean) (only Util.bs.js)))(deps (:inputs  Util.ast)  (:ast_deps .././src/Util.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Util.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Basic.ast)
+ (deps (:inputs  Basic.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Basic.cmj Basic.cmi Basic.cmt Basic.bs.js)
+ (mode (promote (until-clean) (only Basic.bs.js)))(deps (:inputs  Basic.ast)  (:ast_deps .././src/Basic.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Basic.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Day04.ast)
+ (deps (:inputs  Day04.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Day04.cmj Day04.cmi Day04.cmt Day04.bs.js)
+ (mode (promote (until-clean) (only Day04.bs.js)))(deps (:inputs  Day04.ast)  (:ast_deps .././src/Day04.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Day04.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  Day04.bs.js Basic.bs.js Util.bs.js App.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+
+
+(subdir .melange.eobjs)
+
+(data_only_dirs node_modules .melange.eobjs)
+(alias (name bsb_world))
+;;;;BSB GENERATED: NO EDIT}

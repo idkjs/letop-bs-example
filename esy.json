@@ -1,15 +1,14 @@
 {
   "dependencies": {
-    "bs-platform": "*"
-  },
-  "resolutions": {
-    "bs-platform": "anmonteiro/bucklescript#1a00d85a",
-    "ocaml": "anmonteiro/ocaml#75f22c8"
+    "@opam/ppxlib": "*",
+    "@opam/ocaml-lsp-server": "*",
+    "melange": "melange-re/melange",
+    "ocaml": "4.12.x"
   },
   "esy": {
     "buildsInSource": "unsafe",
     "build": [
-      "ln -sfn #{bs-platform.install} node_modules/bs-platform"
+      "ln -sfn #{melange.install} node_modules/bs-platform"
     ]
   },
   "installConfig": {
