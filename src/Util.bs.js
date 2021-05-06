@@ -66,7 +66,7 @@ function readInput(year, day) {
             },
             _1: "resources/year%04d/day%02d.in"
           }), year, day);
-  var dir = __dirname + "/../../";
+  var dir = __dirname + "/../";
   return Fs.readFileSync(dir + path, "utf8");
 }
 

@@ -19,6 +19,6 @@ external dirname: string = "__dirname";
 
 let readInput = (~year, ~day) => {
   let path = Printf.sprintf({j|resources/year%04d/day%02d.in|j}, year, day);
-  let dir = dirname ++ "/../../"
+  let dir = dirname ++ "/../"
   Node_fs.readFileAsUtf8Sync(dir ++ path);
 };
