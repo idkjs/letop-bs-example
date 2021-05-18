@@ -265,7 +265,41 @@
 (subdir ./node_modules/reason-react(data_only_dirs .melange.eobjs))
 (subdir ./node_modules/reason-react/.melange.eobjs)
 
+(subdir ./node_modules/vec/src
+(rule
+(targets  vec.ast)
+ (deps (:inputs  vec.ml) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  vec.iast)
+ (deps (:inputs  vec.mli) )
+(action
+ (run bsc  -w a  -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  vec.cmi vec.cmti)
+ (deps (:inputs  vec.iast)  (:ast_deps .././src/vec.ast .././src/vec.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/vec -cwd ./src %{ast_deps}) (run bsc -I .    -w a -o vec.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  vec.cmj vec.cmt vec.bs.js)
+ (mode (promote (until-clean) (only vec.bs.js)))(deps (:inputs  vec.ast)  vec.cmi (:ast_deps .././src/vec.ast .././src/vec.iast) ../bsconfig.json)
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example/node_modules/vec -cwd ./src %{ast_deps}) (run bsc -bs-read-cmi -I .    -w a -bs-package-name vec -bs-package-output commonjs:./src:.bs.js -o vec.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  vec.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+
+
+(subdir ./node_modules/vec(data_only_dirs .melange.eobjs))
+(subdir ./node_modules/vec/.melange.eobjs)
+
 (subdir ./src
+(dirs :standard re)
 (rule
 (targets  App.ast)
  (deps (:inputs  App.re) )
@@ -274,9 +308,21 @@
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  App.cmj App.cmi App.cmt App.bs.js)
- (mode (promote (until-clean) (only App.bs.js)))(deps (:inputs  App.ast)  (:ast_deps .././src/App.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+ (mode (promote (until-clean) (only App.bs.js)))(deps (:inputs  App.ast)  (:ast_deps .././src/App.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
 (action
- (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o App.cmj %{inputs})))
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o App.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Test.ast)
+ (deps (:inputs  Test.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Test.cmj Test.cmi Test.cmt Test.bs.js)
+ (mode (promote (until-clean) (only Test.bs.js)))(deps (:inputs  Test.ast)  (:ast_deps .././src/Test.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Test.cmj %{inputs})))
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  Util.ast)
@@ -286,9 +332,9 @@
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  Util.cmj Util.cmi Util.cmt Util.bs.js)
- (mode (promote (until-clean) (only Util.bs.js)))(deps (:inputs  Util.ast)  (:ast_deps .././src/Util.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+ (mode (promote (until-clean) (only Util.bs.js)))(deps (:inputs  Util.ast)  (:ast_deps .././src/Util.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
 (action
- (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Util.cmj %{inputs})))
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Util.cmj %{inputs})))
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  Basic.ast)
@@ -298,9 +344,9 @@
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  Basic.cmj Basic.cmi Basic.cmt Basic.bs.js)
- (mode (promote (until-clean) (only Basic.bs.js)))(deps (:inputs  Basic.ast)  (:ast_deps .././src/Basic.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+ (mode (promote (until-clean) (only Basic.bs.js)))(deps (:inputs  Basic.ast)  (:ast_deps .././src/Basic.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
 (action
- (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Basic.cmj %{inputs})))
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Basic.cmj %{inputs})))
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  Day04.ast)
@@ -310,12 +356,388 @@
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  (rule
 (targets  Day04.cmj Day04.cmi Day04.cmt Day04.bs.js)
- (mode (promote (until-clean) (only Day04.bs.js)))(deps (:inputs  Day04.ast)  (:ast_deps .././src/Day04.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world))
+ (mode (promote (until-clean) (only Day04.bs.js)))(deps (:inputs  Day04.ast)  (:ast_deps .././src/Day04.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
 (action
- (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Day04.cmj %{inputs})))
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Day04.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Force.ast)
+ (deps (:inputs  Force.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Force.cmj Force.cmi Force.cmt Force.bs.js)
+ (mode (promote (until-clean) (only Force.bs.js)))(deps (:inputs  Force.ast)  (:ast_deps .././src/Force.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Force.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Regex.ast)
+ (deps (:inputs  Regex.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  Regex.cmj Regex.cmi Regex.cmt Regex.bs.js)
+ (mode (promote (until-clean) (only Regex.bs.js)))(deps (:inputs  Regex.ast)  (:ast_deps .././src/Regex.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o Regex.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  TestRe.ast)
+ (deps (:inputs  TestRe.re) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  TestRe.cmj TestRe.cmi TestRe.cmt TestRe.bs.js)
+ (mode (promote (until-clean) (only TestRe.bs.js)))(deps (:inputs  TestRe.ast)  (:ast_deps .././src/TestRe.ast ) ../bsconfig.json(alias ../node_modules/reason-react/src/bsb_world)(alias ../node_modules/reason-react/src/legacy/bsb_world)(alias ../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src %{ast_deps}) (run bsc -bs-re-out -I ./re -I . -I ../node_modules/reason-react/src -I ../node_modules/reason-react/src/legacy -I ../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src:.bs.js -o TestRe.cmj %{inputs})))
 (enabled_if (= %{ocaml_version} "4.12.0")) )
  
-(alias (name bsb_world)(deps  Day04.bs.js Basic.bs.js Util.bs.js App.bs.js)
+(alias (name bsb_world)(deps  TestRe.bs.js Regex.bs.js Force.bs.js Day04.bs.js Basic.bs.js Util.bs.js Test.bs.js App.bs.js)
+(enabled_if (= %{ocaml_version} "4.12.0"))))
+(subdir ./src/re
+(rule
+(targets  re.ast)
+ (deps (:inputs  re.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  re.cmj re.cmi re.cmt re.bs.js)
+ (mode (promote (until-clean) (only re.bs.js)))(deps (:inputs  re.ast)  (:ast_deps ../.././src/re/re.ast ) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o re.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  fmt.ast)
+ (deps (:inputs  fmt.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  fmt.cmj fmt.cmi fmt.cmt fmt.bs.js)
+ (mode (promote (until-clean) (only fmt.bs.js)))(deps (:inputs  fmt.ast)  (:ast_deps ../.././src/re/fmt.ast ) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o fmt.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  str.ast)
+ (deps (:inputs  str.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  str.iast)
+ (deps (:inputs  str.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  str.cmi str.cmti)
+ (deps (:inputs  str.iast)  (:ast_deps ../.././src/re/str.ast ../.././src/re/str.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o str.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  str.cmj str.cmt str.bs.js)
+ (mode (promote (until-clean) (only str.bs.js)))(deps (:inputs  str.ast)  str.cmi (:ast_deps ../.././src/re/str.ast ../.././src/re/str.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o str.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  core.ast)
+ (deps (:inputs  core.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  core.iast)
+ (deps (:inputs  core.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  core.cmi core.cmti)
+ (deps (:inputs  core.iast)  (:ast_deps ../.././src/re/core.ast ../.././src/re/core.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o core.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  core.cmj core.cmt core.bs.js)
+ (mode (promote (until-clean) (only core.bs.js)))(deps (:inputs  core.ast)  core.cmi (:ast_deps ../.././src/re/core.ast ../.././src/re/core.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o core.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  cset.ast)
+ (deps (:inputs  cset.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  cset.iast)
+ (deps (:inputs  cset.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  cset.cmi cset.cmti)
+ (deps (:inputs  cset.iast)  (:ast_deps ../.././src/re/cset.ast ../.././src/re/cset.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o cset.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  cset.cmj cset.cmt cset.bs.js)
+ (mode (promote (until-clean) (only cset.bs.js)))(deps (:inputs  cset.ast)  cset.cmi (:ast_deps ../.././src/re/cset.ast ../.././src/re/cset.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o cset.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  glob.ast)
+ (deps (:inputs  glob.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  glob.iast)
+ (deps (:inputs  glob.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  glob.cmi glob.cmti)
+ (deps (:inputs  glob.iast)  (:ast_deps ../.././src/re/glob.ast ../.././src/re/glob.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o glob.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  glob.cmj glob.cmt glob.bs.js)
+ (mode (promote (until-clean) (only glob.bs.js)))(deps (:inputs  glob.ast)  glob.cmi (:ast_deps ../.././src/re/glob.ast ../.././src/re/glob.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o glob.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pcre.ast)
+ (deps (:inputs  pcre.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pcre.iast)
+ (deps (:inputs  pcre.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pcre.cmi pcre.cmti)
+ (deps (:inputs  pcre.iast)  (:ast_deps ../.././src/re/pcre.ast ../.././src/re/pcre.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o pcre.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pcre.cmj pcre.cmt pcre.bs.js)
+ (mode (promote (until-clean) (only pcre.bs.js)))(deps (:inputs  pcre.ast)  pcre.cmi (:ast_deps ../.././src/re/pcre.ast ../.././src/re/pcre.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o pcre.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  perl.ast)
+ (deps (:inputs  perl.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  perl.iast)
+ (deps (:inputs  perl.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  perl.cmi perl.cmti)
+ (deps (:inputs  perl.iast)  (:ast_deps ../.././src/re/perl.ast ../.././src/re/perl.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o perl.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  perl.cmj perl.cmt perl.bs.js)
+ (mode (promote (until-clean) (only perl.bs.js)))(deps (:inputs  perl.ast)  perl.cmi (:ast_deps ../.././src/re/perl.ast ../.././src/re/perl.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o perl.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  emacs.ast)
+ (deps (:inputs  emacs.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  emacs.iast)
+ (deps (:inputs  emacs.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  emacs.cmi emacs.cmti)
+ (deps (:inputs  emacs.iast)  (:ast_deps ../.././src/re/emacs.ast ../.././src/re/emacs.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o emacs.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  emacs.cmj emacs.cmt emacs.bs.js)
+ (mode (promote (until-clean) (only emacs.bs.js)))(deps (:inputs  emacs.ast)  emacs.cmi (:ast_deps ../.././src/re/emacs.ast ../.././src/re/emacs.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o emacs.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  group.ast)
+ (deps (:inputs  group.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  group.iast)
+ (deps (:inputs  group.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  group.cmi group.cmti)
+ (deps (:inputs  group.iast)  (:ast_deps ../.././src/re/group.ast ../.././src/re/group.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o group.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  group.cmj group.cmt group.bs.js)
+ (mode (promote (until-clean) (only group.bs.js)))(deps (:inputs  group.ast)  group.cmi (:ast_deps ../.././src/re/group.ast ../.././src/re/group.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o group.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pmark.ast)
+ (deps (:inputs  pmark.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pmark.iast)
+ (deps (:inputs  pmark.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pmark.cmi pmark.cmti)
+ (deps (:inputs  pmark.iast)  (:ast_deps ../.././src/re/pmark.ast ../.././src/re/pmark.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o pmark.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  pmark.cmj pmark.cmt pmark.bs.js)
+ (mode (promote (until-clean) (only pmark.bs.js)))(deps (:inputs  pmark.ast)  pmark.cmi (:ast_deps ../.././src/re/pmark.ast ../.././src/re/pmark.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o pmark.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  posix.ast)
+ (deps (:inputs  posix.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  posix.iast)
+ (deps (:inputs  posix.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  posix.cmi posix.cmti)
+ (deps (:inputs  posix.iast)  (:ast_deps ../.././src/re/posix.ast ../.././src/re/posix.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o posix.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  posix.cmj posix.cmt posix.bs.js)
+ (mode (promote (until-clean) (only posix.bs.js)))(deps (:inputs  posix.ast)  posix.cmi (:ast_deps ../.././src/re/posix.ast ../.././src/re/posix.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o posix.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  automata.ast)
+ (deps (:inputs  automata.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  automata.iast)
+ (deps (:inputs  automata.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  automata.cmi automata.cmti)
+ (deps (:inputs  automata.iast)  (:ast_deps ../.././src/re/automata.ast ../.././src/re/automata.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o automata.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  automata.cmj automata.cmt automata.bs.js)
+ (mode (promote (until-clean) (only automata.bs.js)))(deps (:inputs  automata.ast)  automata.cmi (:ast_deps ../.././src/re/automata.ast ../.././src/re/automata.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o automata.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  category.ast)
+ (deps (:inputs  category.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  category.iast)
+ (deps (:inputs  category.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  category.cmi category.cmti)
+ (deps (:inputs  category.iast)  (:ast_deps ../.././src/re/category.ast ../.././src/re/category.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o category.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  category.cmj category.cmt category.bs.js)
+ (mode (promote (until-clean) (only category.bs.js)))(deps (:inputs  category.ast)  category.cmi (:ast_deps ../.././src/re/category.ast ../.././src/re/category.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o category.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  color_map.ast)
+ (deps (:inputs  color_map.ml) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  color_map.iast)
+ (deps (:inputs  color_map.mli) )
+(action
+ (run bsc  -w a -bs-jsx 3 -bs-g -absname -bs-ast -o %{targets} %{inputs}))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  color_map.cmi color_map.cmti)
+ (deps (:inputs  color_map.iast)  (:ast_deps ../.././src/re/color_map.ast ../.././src/re/color_map.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -o color_map.cmi %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ (rule
+(targets  color_map.cmj color_map.cmt color_map.bs.js)
+ (mode (promote (until-clean) (only color_map.bs.js)))(deps (:inputs  color_map.ast)  color_map.cmi (:ast_deps ../.././src/re/color_map.ast ../.././src/re/color_map.iast) ../../bsconfig.json(alias ../../node_modules/reason-react/src/bsb_world)(alias ../../node_modules/reason-react/src/legacy/bsb_world)(alias ../../node_modules/vec/src/bsb_world))
+(action
+ (progn (dynamic-run bsb_helper -root /Users/mando/Github/letop-bs-example -cwd ./src/re %{ast_deps}) (run bsc -bs-read-cmi -I . -I .. -I ../../node_modules/reason-react/src -I ../../node_modules/reason-react/src/legacy -I ../../node_modules/vec/src   -w a -bs-package-name story-engine -bs-package-output commonjs:./src/re:.bs.js -o color_map.cmj %{inputs})))
+(enabled_if (= %{ocaml_version} "4.12.0")) )
+ 
+(alias (name bsb_world)(deps  color_map.bs.js category.bs.js automata.bs.js posix.bs.js pmark.bs.js group.bs.js emacs.bs.js perl.bs.js pcre.bs.js glob.bs.js cset.bs.js core.bs.js str.bs.js fmt.bs.js re.bs.js)
 (enabled_if (= %{ocaml_version} "4.12.0"))))
 
 

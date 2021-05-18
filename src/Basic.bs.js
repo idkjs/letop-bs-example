@@ -2,6 +2,7 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Stdlib = require("bs-platform/lib/js/stdlib.js");
 var Caml_obj = require("bs-platform/lib/js/caml_obj.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
@@ -29,9 +30,32 @@ function and$dotopt(a, b) {
   
 }
 
+function let$dotforce(v, fin) {
+  if (v.TAG === /* Ok */0) {
+    return Curry._1(fin, v._0);
+  } else {
+    return Stdlib.failwith("Force unwrapping an Error'd Result");
+  }
+}
+
+var z = "";
+
 var x = let$dotopt(1, (function (a) {
         var left = and$dotopt(2, 3);
         return let$dotopt(and$dotopt(left, 4), (function (param) {
+                      var match = param[0];
+                      return [
+                              a,
+                              match[0],
+                              match[1],
+                              param[1]
+                            ];
+                    }));
+      }));
+
+var x2 = let$dotopt("1", (function (a) {
+        var left = and$dotopt("2", "3");
+        return let$dotopt(and$dotopt(left, "4"), (function (param) {
                       var match = param[0];
                       return [
                               a,
@@ -53,6 +77,21 @@ var y = let$dotopt(and$dotopt(left, 4), (function (param) {
               ];
       }));
 
+var f = "";
+
+console.log([
+      1,
+      2,
+      3,
+      4
+    ]);
+
+console.log(x);
+
+console.log(x2);
+
+console.log(f);
+
 if (!Caml_obj.caml_equal(x, [
         1,
         2,
@@ -63,7 +102,24 @@ if (!Caml_obj.caml_equal(x, [
         RE_EXN_ID: "Assert_failure",
         _1: [
           "Basic.re",
-          19,
+          55,
+          0
+        ],
+        Error: new Error()
+      };
+}
+
+if (!Caml_obj.caml_equal(x2, [
+        "1",
+        "2",
+        "3",
+        "4"
+      ])) {
+  throw {
+        RE_EXN_ID: "Assert_failure",
+        _1: [
+          "Basic.re",
+          56,
           0
         ],
         Error: new Error()
@@ -75,7 +131,7 @@ if (y !== undefined) {
         RE_EXN_ID: "Assert_failure",
         _1: [
           "Basic.re",
-          20,
+          57,
           0
         ],
         Error: new Error()
@@ -87,6 +143,10 @@ console.log("Success");
 exports.let$dotopt = let$dotopt;
 exports.let$dot$ampopt = let$dot$ampopt;
 exports.and$dotopt = and$dotopt;
+exports.let$dotforce = let$dotforce;
+exports.z = z;
 exports.x = x;
+exports.x2 = x2;
 exports.y = y;
+exports.f = f;
 /* x Not a pure module */
